@@ -6,15 +6,17 @@ import { ListGroup } from "react-bootstrap";
 const HomeScreen = () => {
   const [data, setData] = useState("");
   const common_subjects = [
-    "arts",
     "animals",
-    "fiction",
-    "sciencemathematics",
+    "arts",
     "business",
-    "juvenile_fiction",
-    "history",
     "biography",
+    "fiction",
+    "history",
+    "sciencemathematics",
     "social_sciences",
+    "travel",
+    "juvenile_fiction",
+    "health",
   ];
 
   return (

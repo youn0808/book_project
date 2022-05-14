@@ -12,7 +12,8 @@ const SubjectScreen = () => {
   const [data, setData] = useState("");
   useEffect(() => {
     setLoading(true);
-    fetch(`https://openlibrary.org/subjects/${params_subject}.json?limit=10`)
+
+    fetch(`https://openlibrary.org/subjects/${params_subject}.json?limit=10?`)
       .then((response) => response.json())
       .then((data) => setData(data))
       .then(() => setLoading(false));
@@ -27,23 +28,23 @@ const SubjectScreen = () => {
 
       <ListGroup variant="flush">
         {books?.map((book) => {
-          const book_data = {
-            olid: book.cover_edition_key,
-            title: book.title,
-          };
+          console.log(book);
           return (
             // cover_edition_key is Open Library ID (OLID)
             <ListGroup.Item key={book.cover_edition_key}>
-              <Link to={{
-                  pathname: `/${book.cover_edition_key}`,
-                  state: { book: true },
+              {/* Pass the book object data */}
+              <Link
+                to={`/${book.cover_edition_key}`}
+                state={{
+                  title: book.title,
+                  olid: book.cover_edition_key,
+                  subjects: book.subject,
+                  authors: book.authors,
+                  isbn: book.availability === null ? "null" : book.availability,
                 }}
               >
                 {book.title}
               </Link>
-
-              {/* <a href={`/${book.cover_edition_key}`}>{book.title}</a> */}
-              <div>{book.cover_edition_key}</div>
             </ListGroup.Item>
           );
         })}
