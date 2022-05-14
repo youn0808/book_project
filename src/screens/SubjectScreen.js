@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ListGroup } from "react-bootstrap";
 // import Book from "../components/Book";
@@ -16,7 +16,7 @@ const SubjectScreen = () => {
       .then((response) => response.json())
       .then((data) => setData(data))
       .then(() => setLoading(false));
-  }, []);
+  }, [params_subject]);
 
   const books = data.works;
 
@@ -27,40 +27,29 @@ const SubjectScreen = () => {
 
       <ListGroup variant="flush">
         {books?.map((book) => {
+          const book_data = {
+            olid: book.cover_edition_key,
+            title: book.title,
+          };
           return (
+            // cover_edition_key is Open Library ID (OLID)
             <ListGroup.Item key={book.cover_edition_key}>
-              <a href={`/${book.cover_edition_key}`}>{book.title}</a>
+              <Link to={{
+                  pathname: `/${book.cover_edition_key}`,
+                  state: { book: true },
+                }}
+              >
+                {book.title}
+              </Link>
+
+              {/* <a href={`/${book.cover_edition_key}`}>{book.title}</a> */}
+              <div>{book.cover_edition_key}</div>
             </ListGroup.Item>
           );
         })}
       </ListGroup>
-
-      {/* <Row>
-        {books?.map((book, index) => (
-          <Col key={book.cover_edition_key} sm={12} md={6} lg={4} xl={3}>
-            <Book book={book}></Book>
-          </Col>
-        ))}
-      </Row>
-      <ul>
-        {books?.map((item, i) => {
-          return <li key={i}>{item.title}</li>;
-        })}
-      </ul> */}
     </>
   );
 };
 
-{
-  /* <Row>
-  {products.map((product) => (
-    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-      <Product product={product} />
-    </Col>
-  ))}
-</Row>; */
-}
-
 export default SubjectScreen;
-
-// /subjects/love.json?details=true

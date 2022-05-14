@@ -17,7 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<HomeScreen />} />
             <Route path="/subjects/:id" element={<SubjectScreen />} />
-            <Route path="/:isbn" element={<BookDetailScreen />} />
+            <Route path="/:olid" element={<BookDetailScreen />} />
           </Routes>
         </Container>
       </main>
