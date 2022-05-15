@@ -7,33 +7,98 @@ import { ListGroup } from "react-bootstrap";
 const SubjectScreen = () => {
   const params = useParams();
   const params_subject = params.id;
-  const [loading, setLoading] = useState(false);
 
+  const [isLoading, setIsLoading] = useState(true);
+  const [httpError, setHttpError] = useState();
+
+  const [books, setBooks] = useState([]);
   const [data, setData] = useState("");
+
+  // useEffect(() => {
+  //   setLoading(true);
+
+  //   fetch(`https://openlibrary.org/subjects/${params_subject}.json?limit=10?`)
+  //     .then((response) => response.json())
+  //     .then((data) => setData(data))
+  //     .then(() => setLoading(false));
+  // }, [params_subject]);
+
   useEffect(() => {
-    setLoading(true);
+    const fetchBooks = async () => {
+      const response = await fetch(
+        `https://openlibrary.org/subjects/${params_subject}.json?limit=10?`
+      );
 
-    fetch(`https://openlibrary.org/subjects/${params_subject}.json?limit=10?`)
-      .then((response) => response.json())
-      .then((data) => setData(data))
-      .then(() => setLoading(false));
-  }, [params_subject]);
+      if (!response.ok) {
+        throw new Error("Response error");
+      }
+      const responseData = await response.json();
+      const books = responseData.works;
+      const loadedBooks = [];
 
-  const books = data.works;
+      for (const key in books) {
+        loadedBooks.push({
+          id: key,
+          title: books[key].title,
+          olid: books[key].cover_edition_key,
+          subjects: books[key].subject,
+          authors: books[key].authors,
+          isbn:
+            books[key].availability === null ? "null" : books[key].availability,
+        });
+      }
 
+      setBooks(loadedBooks);
+      setIsLoading(false);
+    };
+    fetchBooks().catch((error) => {
+      setIsLoading(false);
+      setHttpError(error.message);
+    });
+  }, []);
+
+  if (isLoading) {
+    return (
+      <section>
+        <p>Loading...</p>
+      </section>
+    );
+  }
+  if (httpError) {
+    return (
+      <section>
+        <p>{httpError}</p>
+      </section>
+    );
+  }
+  const bookList = books.map((book) => {
+    return (
+      <ListGroup.Item key={book.id}>
+        <Link
+          style={{ textDecoration: "none" }}
+          to={`/${book.olid}`}
+          state={{ book }}
+        >
+          {book.title}
+        </Link>
+      </ListGroup.Item>
+    );
+  });
   return (
     <>
-      <h3>Subject:{params_subject} </h3>
+      <h3>List of "{params_subject}" subject books</h3>
       <span>Number of serached books:{data.work_count}</span>
 
+      <ListGroup variant="flush">{bookList}</ListGroup>
+      {/* 
       <ListGroup variant="flush">
         {books?.map((book) => {
-          console.log(book);
           return (
-            // cover_edition_key is Open Library ID (OLID)
+            
             <ListGroup.Item key={book.cover_edition_key}>
-              {/* Pass the book object data */}
+              
               <Link
+                style={{ textDecoration: "none" }}
                 to={`/${book.cover_edition_key}`}
                 state={{
                   title: book.title,
@@ -48,7 +113,7 @@ const SubjectScreen = () => {
             </ListGroup.Item>
           );
         })}
-      </ListGroup>
+      </ListGroup> */}
     </>
   );
 };

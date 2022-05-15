@@ -5,3 +5,17 @@ main {
 h3 {
   padding: 0.8rem 0;
 }
+
+a {
+  text-decoration: none;
+}
+
+.BooksLoading {
+  text-align: center;
+  color: white;
+}
+
+.BooksError {
+  text-align: center;
+  color: red;
+}

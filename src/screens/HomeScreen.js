@@ -26,7 +26,12 @@ const HomeScreen = () => {
         {common_subjects.map((subject) => {
           return (
             <ListGroup.Item key={subject}>
-              <a href={`/subjects/${subject}`}>{subject}</a>
+              <a
+                style={{ textDecoration: "none" }}
+                href={`/subjects/${subject}`}
+              >
+                {subject}
+              </a>
             </ListGroup.Item>
           );
         })}

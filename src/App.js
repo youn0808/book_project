@@ -20,6 +20,7 @@ function App() {
             <Route path="/:id/subject/" element={<SubjectListScreen />} />
             <Route path="/:olid" element={<BookDetailScreen />} />
             <Route path="/subjects" element={<HomeScreen />} />
+            <Route path="/" element={<HomeScreen />} />
           </Routes>
         </Container>
       </main>
