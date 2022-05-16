@@ -3,8 +3,8 @@ import { useState } from "react";
 
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import "./Post.css";
-const Post = ({ books, loading }) => {
+import "./Pagination.css";
+const Pagination = ({ books, loading }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -75,7 +75,7 @@ const Post = ({ books, loading }) => {
               to={`/${book.olid}`}
               state={{ book }}
             >
-              {book.title}
+              {book.title ? book.title : "Book title does not exist"}
             </Link>
           </ListGroup.Item>
         ))}
@@ -107,4 +107,4 @@ const Post = ({ books, loading }) => {
   );
 };
 
-export default Post;
+export default Pagination;

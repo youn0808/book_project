@@ -2,7 +2,7 @@ import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
-import Post from "../components/Post";
+import Pagination from "../components/Pagination";
 
 const SubjectScreen = () => {
   const params = useParams();
@@ -32,12 +32,13 @@ const SubjectScreen = () => {
       for (const key in books) {
         loadedBooks.push({
           id: key,
-          title: books[key].title,
-          olid: books[key].cover_edition_key,
-          subjects: books[key].subject,
-          authors: books[key].authors,
-          isbn:
-            books[key].availability === null ? "null" : books[key].availability,
+          title: books[key].title ? books[key].title : "No title",
+          olid: books[key].cover_edition_key
+            ? books[key].cover_edition_key
+            : "No Olid",
+          subjects: books[key].subject ? books[key].subject : "No subjects",
+          authors: books[key].authors ? books[key].authors : "No authors",
+          isbn: books[key].availability ? books[key].availability : "No ISBN",
         });
       }
 
@@ -77,7 +78,7 @@ const SubjectScreen = () => {
         </Col>
       </Row>
 
-      <Post books={books} loading={isLoading} />
+      <Pagination books={books} loading={isLoading} />
     </>
   );
 };

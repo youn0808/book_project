@@ -86,7 +86,9 @@ const BookDetailScreen = () => {
                 Subject Detail
               </Link>
             </ListGroup.Item>
-            <ListGroup.Item>Publish year: {year}</ListGroup.Item>
+            <ListGroup.Item>
+              Publish year: {year ? year : "No year"}
+            </ListGroup.Item>
             <ListGroup.Item>
               <a href={infoURL}>Description Link</a>
             </ListGroup.Item>
