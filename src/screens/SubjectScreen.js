@@ -1,8 +1,8 @@
 import React from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { ListGroup } from "react-bootstrap";
-// import Book from "../components/Book";
+import { Row, Col, Button } from "react-bootstrap";
+import Post from "../components/Post";
 
 const SubjectScreen = () => {
   const params = useParams();
@@ -14,19 +14,12 @@ const SubjectScreen = () => {
   const [books, setBooks] = useState([]);
   const [data, setData] = useState("");
 
-  // useEffect(() => {
-  //   setLoading(true);
-
-  //   fetch(`https://openlibrary.org/subjects/${params_subject}.json?limit=10?`)
-  //     .then((response) => response.json())
-  //     .then((data) => setData(data))
-  //     .then(() => setLoading(false));
-  // }, [params_subject]);
+  let navigate = useNavigate();
 
   useEffect(() => {
     const fetchBooks = async () => {
       const response = await fetch(
-        `https://openlibrary.org/subjects/${params_subject}.json?limit=10?`
+        `https://openlibrary.org/subjects/${params_subject}.json?limit=160`
       );
 
       if (!response.ok) {
@@ -48,6 +41,7 @@ const SubjectScreen = () => {
         });
       }
 
+      setData(responseData);
       setBooks(loadedBooks);
       setIsLoading(false);
     };
@@ -55,14 +49,10 @@ const SubjectScreen = () => {
       setIsLoading(false);
       setHttpError(error.message);
     });
-  }, []);
+  }, [params_subject]);
 
   if (isLoading) {
-    return (
-      <section>
-        <p>Loading...</p>
-      </section>
-    );
+    return <h3>Loading...</h3>;
   }
   if (httpError) {
     return (
@@ -71,49 +61,23 @@ const SubjectScreen = () => {
       </section>
     );
   }
-  const bookList = books.map((book) => {
-    return (
-      <ListGroup.Item key={book.id}>
-        <Link
-          style={{ textDecoration: "none" }}
-          to={`/${book.olid}`}
-          state={{ book }}
-        >
-          {book.title}
-        </Link>
-      </ListGroup.Item>
-    );
-  });
+
   return (
     <>
-      <h3>List of "{params_subject}" subject books</h3>
-      <span>Number of serached books:{data.work_count}</span>
+      <Row>
+        <Col md={8}>
+          <h3>List of "{params_subject}" subject books</h3>
+          <span>Number of serached books:{data.work_count}</span>
+        </Col>
+        <Col md={4}>
+          {" "}
+          <Button onClick={() => navigate(-1)} className=" btn-light my-3">
+            Go Back
+          </Button>
+        </Col>
+      </Row>
 
-      <ListGroup variant="flush">{bookList}</ListGroup>
-      {/* 
-      <ListGroup variant="flush">
-        {books?.map((book) => {
-          return (
-            
-            <ListGroup.Item key={book.cover_edition_key}>
-              
-              <Link
-                style={{ textDecoration: "none" }}
-                to={`/${book.cover_edition_key}`}
-                state={{
-                  title: book.title,
-                  olid: book.cover_edition_key,
-                  subjects: book.subject,
-                  authors: book.authors,
-                  isbn: book.availability === null ? "null" : book.availability,
-                }}
-              >
-                {book.title}
-              </Link>
-            </ListGroup.Item>
-          );
-        })}
-      </ListGroup> */}
+      <Post books={books} loading={isLoading} />
     </>
   );
 };

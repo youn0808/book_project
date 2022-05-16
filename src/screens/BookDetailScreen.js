@@ -2,45 +2,23 @@ import React from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Row, Col, Image, ListGroup, Button } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
 
 const BookDetailScreen = () => {
   const [data, setData] = useState("");
   const [year, setYear] = useState("");
   const [infoURL, setInfoURL] = useState("");
-  const [loading, setLoading] = useState(false);
   const location = useLocation();
+  let navigate = useNavigate();
+  //extract book inforatmion
   const book = location.state.book;
   const title = book.title;
   const olid = book.olid;
   const authors = book.authors;
   const subjects = book.subjects;
-  let navigate = useNavigate();
 
   let coverImage = `http://covers.openlibrary.org/b/olid/` + olid + "-L.jpg";
 
-  // const { title } = location.state.book;
-  // const { olid } = location.state.book;
-  // const { authors } = location.state.book;
-  // const subjects = location.state.subjects.book;
-
-  // console.log(location.state.subjects);
-  // const { subjects } = location.state;
-
-  // const { isbn } = location.state;
-
-  // https://covers.openlibrary.org/b/olid/OL24333153M-L.jpg
-  //fetch a selected book detail data
-  // useEffect(() => {
-  //   setLoading(true);
-  //   fetch(
-  //     `https://openlibrary.org/api/books?bibkeys=OLID:${olid}&jscmd=details&format=json`
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => setData(data))
-  //     .then(() => setLoading(false));
-  // }, [olid]);
-
+  // fetch selected book detail inforamtion
   useEffect(() => {
     const fetchDetailBook = async () => {
       const response = await fetch(
@@ -58,20 +36,9 @@ const BookDetailScreen = () => {
     fetchDetailBook();
   }, [olid]);
 
-  // const infoURL = data.info_url;
-
-  // const bookDetailObj = data[`OLID:${olid}`];
-  // const infoURL = `${bookDetailObj?.info_url}`;
-  // const year = data.details.publish_date;
-  // console.log(years);
-  // const year = 23;
-  // const year =
-  //   bookDetailObj?.details.publish_date === null
-  //     ? "N/A"
-  //     : bookDetailObj?.details.publish_date;
-
   return (
     <>
+      {/* Go back btn */}
       <Row>
         <Col md={8}>
           <h3>Book detail</h3>

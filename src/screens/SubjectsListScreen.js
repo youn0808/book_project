@@ -1,15 +1,27 @@
 import React from "react";
-import { Link, useParams, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+import { Row, Col, Button } from "react-bootstrap";
 const SubjectListScreen = () => {
   const location = useLocation();
   const { subjects } = location.state;
-
+  let navigate = useNavigate();
   return (
     <>
-      <h3>List of Subjects</h3>
+      <Row>
+        <Col md={8}>
+          <h3>List of Subjects</h3>
+        </Col>
+        <Col md={4}>
+          {" "}
+          <Button onClick={() => navigate(-1)} className=" btn-light my-3">
+            Go Back
+          </Button>
+        </Col>
+      </Row>
+
       <div>
-        {subjects.map((subject) => (
-          <li>{subject}</li>
+        {subjects.map((subject, index) => (
+          <li key={index}>{subject}</li>
         ))}
       </div>
     </>

@@ -19,7 +19,7 @@ function App() {
             <Route path="/subjects/:id" element={<SubjectScreen />} />
             <Route path="/:id/subject/" element={<SubjectListScreen />} />
             <Route path="/:olid" element={<BookDetailScreen />} />
-            <Route path="/subjects" element={<HomeScreen />} />
+            <Route path="/subjects" element={<HomeScreen />} exact />
             <Route path="/" element={<HomeScreen />} />
           </Routes>
         </Container>
