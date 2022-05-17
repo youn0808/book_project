@@ -19,9 +19,11 @@ const SubjectListScreen = () => {
         </Col>
       </Row>
 
-      <div data-testid="subjects">
+      <div>
         {subjects.map((subject, index) => (
-          <li key={index}>{subject}</li>
+          <li key={index} data-testid="subjectsList">
+            {subject}
+          </li>
         ))}
       </div>
     </>

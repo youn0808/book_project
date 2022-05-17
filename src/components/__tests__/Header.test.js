@@ -11,7 +11,6 @@ describe("Render Header Component", () => {
       </Router>
     );
 
-    //   const headerElement = screen.getByTestId("headerBar");
     const headerElement = screen.getByTitle("Header");
     expect(headerElement).toBeInTheDocument();
   });

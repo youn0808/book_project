@@ -14,19 +14,3 @@ describe("Render SubjectScreen Component ", () => {
     expect(headingElement).toBeInTheDocument();
   });
 });
-
-// describe("Render booklist from the api  ", () => {
-//   test("Should get booklist from the api ", async () => {
-//     api.getBooksFromApi.mockResolvedValue({
-//       works: [{ title: "Bible" }],
-//     });
-//     render(
-//       <Router>
-//         <SubjectScreen />
-//       </Router>
-//     );
-//     await waitFor(() => {
-//       screen.getByText("Bible");
-//     });
-//   });
-// });

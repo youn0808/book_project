@@ -18,24 +18,6 @@ const BookDetailScreen = () => {
 
   let coverImage = `http://covers.openlibrary.org/b/olid/` + olid + "-L.jpg";
 
-  // fetch selected book detail inforamtion
-  // useEffect(() => {
-  //   const fetchDetailBook = async () => {
-  //     const response = await fetch(
-  //       `https://openlibrary.org/api/books?bibkeys=OLID:${olid}&jscmd=details&format=json`
-  //     );
-
-  //     if (!response.ok) {
-  //       throw new Error("Response error");
-  //     }
-  //     const responseData = await response.json();
-  //     setData(responseData[`OLID:${olid}`]);
-  //     setYear(responseData[`OLID:${olid}`].details.publish_date);
-  //     setInfoURL(responseData[`OLID:${olid}`].info_url);
-  //   };
-  //   fetchDetailBook();
-  // }, [olid]);
-
   useEffect(() => {
     const fetchDetailBook = async () => {
       const response = await fetch(
@@ -55,7 +37,6 @@ const BookDetailScreen = () => {
 
   return (
     <>
-      {/* Go back btn */}
       <Row>
         <Col md={8}>
           <h3>Book detail</h3>
