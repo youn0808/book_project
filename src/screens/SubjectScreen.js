@@ -16,6 +16,10 @@ const SubjectScreen = () => {
 
   let navigate = useNavigate();
 
+  // useEffect(() => {
+  //   fetch(`https://openlibrary.org/subjects/${params_subject}.json?limit=160`);
+  // }, []);
+
   useEffect(() => {
     const fetchBooks = async () => {
       const response = await fetch(
@@ -53,7 +57,7 @@ const SubjectScreen = () => {
   }, [params_subject]);
 
   if (isLoading) {
-    return <h3>Loading...</h3>;
+    return <h2>Loading...</h2>;
   }
   if (httpError) {
     return (

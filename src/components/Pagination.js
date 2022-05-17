@@ -69,7 +69,7 @@ const Pagination = ({ books, loading }) => {
       {/* render items in selected page number */}
       <ListGroup variant="flush">
         {currentItems.map((book) => (
-          <ListGroup.Item key={book.id}>
+          <ListGroup.Item key={book.id} data-testid="booklist">
             <Link
               style={{ textDecoration: "none" }}
               to={`/${book.olid}`}

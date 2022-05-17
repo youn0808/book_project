@@ -1,26 +1,11 @@
 import React from "react";
-
 import { ListGroup } from "react-bootstrap";
-const HomeScreen = () => {
-  const common_subjects = [
-    "animals",
-    "arts",
-    "business",
-    "biography",
-    "fiction",
-    "history",
-    "sciencemathematics",
-    "social_sciences",
-    "travel",
-    "juvenile_fiction",
-    "health",
-  ];
-
+const HomeScreen = ({ subjects }) => {
   return (
     <>
       <h3>List of Subjects</h3>
       <ListGroup variant="flush">
-        {common_subjects.map((subject) => {
+        {subjects.map((subject) => {
           return (
             <ListGroup.Item key={subject}>
               <a
