@@ -15,17 +15,18 @@ describe("Render SubjectScreen Component ", () => {
   });
 });
 
-describe("Render booklist from the api  ", () => {
-  test("Should get booklist from the api ", async () => {
-    render(
-      <Router>
-        <SubjectScreen />
-      </Router>
-    );
-    // await waitFor(() => {
-    // screen.getByText("Number of serached books")
-    // });
-    // const headingElement = screen.getByRole("heading", { level: 2 });
-    // expect(headingElement).toBeInTheDocument();
-  });
-});
+// describe("Render booklist from the api  ", () => {
+//   test("Should get booklist from the api ", async () => {
+//     api.getBooksFromApi.mockResolvedValue({
+//       works: [{ title: "Bible" }],
+//     });
+//     render(
+//       <Router>
+//         <SubjectScreen />
+//       </Router>
+//     );
+//     await waitFor(() => {
+//       screen.getByText("Bible");
+//     });
+//   });
+// });
