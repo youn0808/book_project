@@ -7,7 +7,7 @@ const Header = () => {
     <header title="Header">
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
         <Container>
-          <Navbar.Brand as={Link} to="/subjects">
+          <Navbar.Brand as={Link} to="/">
             BookList
           </Navbar.Brand>
         </Container>

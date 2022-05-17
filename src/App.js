@@ -35,7 +35,6 @@ function App() {
             <Route
               path="/subjects"
               element={<HomeScreen subjects={subjects} />}
-              exact
             />
             <Route path="/" element={<HomeScreen subjects={subjects} />} />
           </Routes>

@@ -10,7 +10,6 @@ const SubjectScreen = () => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
-
   const [books, setBooks] = useState([]);
   const [data, setData] = useState("");
 
@@ -27,7 +26,6 @@ const SubjectScreen = () => {
       }
       const responseData = await response.json();
       const books = responseData.works;
-      console.log(responseData.works[0]);
       const loadedBooks = [];
 
       for (const key in books) {
