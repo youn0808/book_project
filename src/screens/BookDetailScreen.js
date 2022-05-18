@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 
@@ -9,7 +9,13 @@ const BookDetailScreen = () => {
   const [infoURL, setInfoURL] = useState("");
   const location = useLocation();
   let navigate = useNavigate();
-  //extract book inforatmion
+
+  const params = useParams();
+
+  console.log(params.id);
+
+  const selectedSubject = params.id;
+
   const book = location.state.book;
   const title = book.title;
   const olid = book.olid;
@@ -17,6 +23,10 @@ const BookDetailScreen = () => {
   const subjects = book.subjects;
 
   let coverImage = `http://covers.openlibrary.org/b/olid/` + olid + "-L.jpg";
+
+  const gobackHandler = (e) => {
+    navigate(`/subjects/${selectedSubject}`);
+  };
 
   useEffect(() => {
     const fetchDetailBook = async () => {
@@ -43,7 +53,8 @@ const BookDetailScreen = () => {
         </Col>
         <Col md={4}>
           {" "}
-          <Button onClick={() => navigate(-1)} className=" btn-light my-3">
+          {/* <Button onClick={() => navigate(-1)} className=" btn-light my-3"> */}
+          <Button onClick={gobackHandler} className=" btn-light my-3">
             Go Back
           </Button>
         </Col>

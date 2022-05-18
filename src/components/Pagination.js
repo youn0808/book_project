@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Pagination.css";
-const Pagination = ({ books, loading }) => {
+const Pagination = ({ books, loading, selectedSubject }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -72,7 +72,8 @@ const Pagination = ({ books, loading }) => {
           <ListGroup.Item key={book.id} data-testid="booklist">
             <Link
               style={{ textDecoration: "none" }}
-              to={`/${book.olid}`}
+              // to={`selectedSubject/${book.olid}`}
+              to={`/subjects/${selectedSubject}/${book.olid}`}
               state={{ book }}
             >
               {book.title ? book.title : "Book title does not exist"}

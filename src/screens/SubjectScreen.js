@@ -8,12 +8,19 @@ const SubjectScreen = () => {
   const params = useParams();
   const params_subject = params.id;
 
+  // console.log(params);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
   const [books, setBooks] = useState([]);
   const [data, setData] = useState("");
 
   let navigate = useNavigate();
+
+  const gobackHandler = (e) => {
+    // navigate(`/subjects/${selectedSubject}`);
+    navigate(`/`);
+    // /subjects/:subject
+  };
 
   useEffect(() => {
     const fetchBooks = async () => {
@@ -71,13 +78,17 @@ const SubjectScreen = () => {
         </Col>
         <Col md={4}>
           {" "}
-          <Button onClick={() => navigate(-1)} className=" btn-light my-3">
+          <Button onClick={gobackHandler} className=" btn-light my-3">
             Go Back
           </Button>
         </Col>
       </Row>
 
-      <Pagination books={books} loading={isLoading} />
+      <Pagination
+        books={books}
+        loading={isLoading}
+        selectedSubject={params_subject}
+      />
     </>
   );
 };
