@@ -30,15 +30,12 @@ function App() {
         <Container className="py-5">
           <Routes>
             <Route path="/subjects/:id" element={<SubjectScreen />} />
-            <Route path="/:id/subject/" element={<SubjectListScreen />} />
-            {/* <Route path="/:olid" element={<BookDetailScreen />} /> */}
-
             <Route path="/subjects/:id/:olid" element={<BookDetailScreen />} />
-
             <Route
               path="/subjects"
               element={<HomeScreen subjects={subjects} />}
             />
+            <Route path="/:id/subject/" element={<SubjectListScreen />} />
             <Route path="/" element={<HomeScreen subjects={subjects} />} />
           </Routes>
         </Container>

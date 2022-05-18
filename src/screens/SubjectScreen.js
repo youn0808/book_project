@@ -7,19 +7,14 @@ import Pagination from "../components/Pagination";
 const SubjectScreen = () => {
   const params = useParams();
   const params_subject = params.id;
-
-  // console.log(params);
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
   const [books, setBooks] = useState([]);
   const [data, setData] = useState("");
-
   let navigate = useNavigate();
 
   const gobackHandler = (e) => {
-    // navigate(`/subjects/${selectedSubject}`);
     navigate(`/`);
-    // /subjects/:subject
   };
 
   useEffect(() => {

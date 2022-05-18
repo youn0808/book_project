@@ -9,13 +9,9 @@ const BookDetailScreen = () => {
   const [infoURL, setInfoURL] = useState("");
   const location = useLocation();
   let navigate = useNavigate();
-
   const params = useParams();
 
-  console.log(params.id);
-
   const selectedSubject = params.id;
-
   const book = location.state.book;
   const title = book.title;
   const olid = book.olid;
@@ -53,7 +49,6 @@ const BookDetailScreen = () => {
         </Col>
         <Col md={4}>
           {" "}
-          {/* <Button onClick={() => navigate(-1)} className=" btn-light my-3"> */}
           <Button onClick={gobackHandler} className=" btn-light my-3">
             Go Back
           </Button>
