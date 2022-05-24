@@ -3,15 +3,14 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import Pagination from "../components/Pagination";
-
-const SubjectScreen = () => {
+const SearchBookScreen = () => {
+  let navigate = useNavigate();
   const params = useParams();
-  const params_subject = params.id;
+  const search_target = params.search;
   const [isLoading, setIsLoading] = useState(true);
   const [httpError, setHttpError] = useState();
   const [books, setBooks] = useState([]);
   const [data, setData] = useState("");
-  let navigate = useNavigate();
 
   const gobackHandler = (e) => {
     navigate(`/`);
@@ -20,14 +19,14 @@ const SubjectScreen = () => {
   useEffect(() => {
     const fetchBooks = async () => {
       const response = await fetch(
-        `https://openlibrary.org/subjects/${params_subject}.json?limit=160`
+        `http://openlibrary.org/search.json?title=${search_target}&jscmd=details`
       );
 
       if (!response.ok) {
         throw new Error("Response error!!");
       }
       const responseData = await response.json();
-      const books = responseData.works;
+      const books = responseData.docs;
       const loadedBooks = [];
 
       for (const key in books) {
@@ -39,8 +38,9 @@ const SubjectScreen = () => {
             ? books[key].cover_edition_key
             : "No Olid",
           subjects: books[key].subject ? books[key].subject : "No subjects",
-          authors: books[key].authors ? books[key].authors : "No authors",
-          // isbn: books[key].availability ? books[key].availability : "No ISBN",
+          authors: books[key].author_name
+            ? books[key].author_name
+            : "No authors",
         });
       }
 
@@ -52,7 +52,7 @@ const SubjectScreen = () => {
       setIsLoading(false);
       setHttpError(error.message);
     });
-  }, [params_subject]);
+  }, [search_target]);
 
   if (isLoading) {
     return <h2>Loading...</h2>;
@@ -64,14 +64,13 @@ const SubjectScreen = () => {
       </section>
     );
   }
-  console.log(books[0]);
   return (
     <>
       <Row>
         <Col md={8}>
-          <h3>List of "{params_subject}" subject books</h3>
-          <span>Number of serached books:{data.work_count}</span>
+          <h3>Search :"{search_target}" </h3>
         </Col>
+
         <Col md={4}>
           {" "}
           <Button onClick={gobackHandler} className=" btn-light my-3">
@@ -80,13 +79,9 @@ const SubjectScreen = () => {
         </Col>
       </Row>
 
-      <Pagination
-        books={books}
-        // loading={isLoading}
-        selectedSubject={params_subject}
-      />
+      <Pagination books={books} loading={isLoading} />
     </>
   );
 };
 
-export default SubjectScreen;
+export default SearchBookScreen;

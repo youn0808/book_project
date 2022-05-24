@@ -7,6 +7,7 @@ import HomeScreen from "./screens/HomeScreen";
 import SubjectScreen from "./screens/SubjectScreen";
 import BookDetailScreen from "./screens/BookDetailScreen";
 import SubjectListScreen from "./screens/SubjectsListScreen";
+import SearchBookScreen from "./screens/SearchBookScreen";
 
 function App() {
   const subjects = [
@@ -29,12 +30,19 @@ function App() {
       <main>
         <Container className="py-5">
           <Routes>
-            <Route path="/subjects/:id" element={<SubjectScreen />} />
-            <Route path="/subjects/:id/:olid" element={<BookDetailScreen />} />
             <Route
               path="/subjects"
               element={<HomeScreen subjects={subjects} />}
             />
+            <Route path="/subjects/:id" element={<SubjectScreen />} />
+
+            <Route path="/search/:search/" element={<SearchBookScreen />} />
+            {/* <Route
+              path="/search/:search/:olid"
+              element={<BookDetailScreen />}
+            /> */}
+
+            <Route path="/detail/:olid" element={<BookDetailScreen />} />
             <Route path="/:id/subject/" element={<SubjectListScreen />} />
             <Route path="/" element={<HomeScreen subjects={subjects} />} />
           </Routes>

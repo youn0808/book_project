@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Pagination.css";
-const Pagination = ({ books, loading, selectedSubject }) => {
+const Pagination = ({ books, selectedSubject }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
@@ -16,9 +16,11 @@ const Pagination = ({ books, loading, selectedSubject }) => {
     setCurrentPage(Number(event.target.id));
   };
   const pages = [];
+  //i = # of index pages. (total # of books /# of book per page ).
   for (let i = 1; i <= Math.ceil(books.length / itemsPerPage); i++) {
     pages.push(i);
   }
+
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = books.slice(indexOfFirstItem, indexOfLastItem);
@@ -42,6 +44,7 @@ const Pagination = ({ books, loading, selectedSubject }) => {
 
   const handleNextBtn = () => {
     setCurrentPage(currentPage + 1);
+    console.log(minPageNumberLimit);
     if (currentPage + 1 > maxPageNumberLimit) {
       setMaxPageNumberLimit(maxPageNumberLimit + pageNumberLimit);
       setMinPageNumberLimit(minPageNumberLimit + pageNumberLimit);
@@ -72,8 +75,7 @@ const Pagination = ({ books, loading, selectedSubject }) => {
           <ListGroup.Item key={book.id} data-testid="booklist">
             <Link
               style={{ textDecoration: "none" }}
-              // to={`selectedSubject/${book.olid}`}
-              to={`/subjects/${selectedSubject}/${book.olid}`}
+              to={`/detail/${book.olid}`}
               state={{ book }}
             >
               {book.title ? book.title : "Book title does not exist"}

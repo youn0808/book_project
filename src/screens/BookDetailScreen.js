@@ -11,17 +11,21 @@ const BookDetailScreen = () => {
   let navigate = useNavigate();
   const params = useParams();
 
-  const selectedSubject = params.id;
+  // const selectedSubject = params.id;
   const book = location.state.book;
   const title = book.title;
   const olid = book.olid;
   const authors = book.authors;
   const subjects = book.subjects;
 
+  // console.log(book);
+  // console.log(book)
+  // console.log(book)
+
   let coverImage = `http://covers.openlibrary.org/b/olid/` + olid + "-L.jpg";
 
   const gobackHandler = (e) => {
-    navigate(`/subjects/${selectedSubject}`);
+    navigate(`/`);
   };
 
   useEffect(() => {
@@ -34,6 +38,8 @@ const BookDetailScreen = () => {
         throw new Error("Response error");
       }
       const responseData = await response.json();
+      console.log(responseData);
+
       setData(responseData[`OLID:${olid}`]);
       setYear(responseData[`OLID:${olid}`].details.publish_date);
       setInfoURL(responseData[`OLID:${olid}`].info_url);

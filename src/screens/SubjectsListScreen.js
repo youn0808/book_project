@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Row, Col, Button } from "react-bootstrap";
 const SubjectListScreen = () => {
   const location = useLocation();
+
   const { subjects } = location.state;
   let navigate = useNavigate();
   return (
